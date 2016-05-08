@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of issues of newsletter</title>
+</head>
+<body>
+<h1>List of issues of the newsletter </h1>
+<div>
+    {{range .Issues}}
+    <h2>Issue #{{.Id}} - {{.Status}}</h2>
+    {{range .Links}}
+    <ul>
+        <li><a href="{{.Link}}">{{.Title}}</a></li>
+    </ul>
+    {{end}}
+    {{end}}
+</div>
+</body>
+</html>

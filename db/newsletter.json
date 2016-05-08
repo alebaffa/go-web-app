@@ -1,0 +1,17 @@
+{
+  "issues": [{
+    "id": 10,
+    "status": "published",
+    "links": [{
+      "contributor": "Alessandro Baffa",
+      "nature": "article",
+      "title": "The Pair Programming Experiment – Part III: The Results",
+      "link": "http://blog.elpassion.com/the-pair-programming-experiment-part-iii-the-results/"
+    }, {
+      "contributor": "Alessandro Baffa",
+      "nature": "article",
+      "title": "Pair Programming - The most Extreme XP Pratice?",
+      "link": "http://www.davefarley.net/?p=261"
+    }]
+  }]
+}
