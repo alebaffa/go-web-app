@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os")
+	"os"
+)
 
 func readJsonReturnNewsletter(jsonFile string) Newsletter {
 

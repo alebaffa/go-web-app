@@ -1,21 +1,24 @@
 package main
 
 import (
-	"gopkg.in/mgo.v2"
 	"net/http"
-	"html/template"
+
+	"github.com/unrolled/render"
+	"gopkg.in/mgo.v2"
 )
 
 type Controller struct {
 	newsletter *mgo.Collection
 }
 
-func (c *Controller) ViewAllIssues(w http.ResponseWriter, r *http.Request) {
-
+func (c *Controller) ViewAllIssues(res http.ResponseWriter, req *http.Request) {
+	var issues = make([]Issue, 0)
 	newsletter := GetAllIssues(c)
-	t, _ := template.ParseFiles("templates/list_issues.html")
-	err := t.Execute(w, newsletter)
-	if err != nil {
-		panic(err)
-	}
+
+	r := render.New(render.Options{
+		IndentJSON: true,
+	})
+
+	issues = newsletter.Issues
+	r.JSON(res, 200, issues)
 }

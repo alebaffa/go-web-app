@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>My Bookshelf</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/cyborg/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+</head>
+<!-- putting this at the top to remove the jarring load -->
+<script src="http://code.angularjs.org/1.2.10/angular.min.js"></script>
+<body ng-controller="MainCtl">
+	<div class="jumbotron">
+		<button class="btn btn-primary pull-right" ng-click="add()">
+			<i class="fa fa-plus"></i> Add book
+		</button>
+		<h1>My Bookshelf</h1>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 well">
+				<h3>Books</h3>
+				<ul class="nav nav-pills nav-stacked">
+					<li ng-class="{active: b.title == selected.title}" ng-repeat="b in issues">
+						<a href="" ng-click="get($index)">{{b.Status}}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<script src="http://code.angularjs.org/1.2.10/angular-resource.min.js"></script>
+<script>
+	// new dependency: ngResource is included just above
+	var myapp = new angular.module("myapp", ["ngResource"]);
+	// inject the $resource dependency here
+	myapp.controller("MainCtl", ["$scope", "$resource", function($scope, $resource){
+		// I designed the backend to play nicely with angularjs so this is all the
+		// setup we need to do all of the ususal operations.
+		var Book = $resource("/", {}, {});
+		$scope.selected = null;
+		$scope.list = function(idx){
+			// Notice calls to Book are often given callbacks.
+			Book.query(function(data){
+				$scope.issues = data;
+				if(idx != undefined) {
+					$scope.selected = $scope.issues[idx];
+					$scope.selected.idx = idx;
+				}
+			}, function(error){
+				alert(error.data);
+			});
+		};
+		$scope.list();
+		$scope.get = function(idx){
+			// Passing parameters to Book calls will become arguments if
+			// we haven't defined it as part of the path (we did with id)
+			Book.get({id: $scope.issues[idx].id}, function(data){
+				$scope.selected = data;
+				$scope.selected.idx = idx;
+			});
+		};
+	}]);
+</script>
+</body>
+</html>
