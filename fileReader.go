@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func readJsonReturnNewsletter(jsonFile string) Newsletter {
+func readJSONReturnNewsletter(jsonFile string) Newsletter {
 
 	file, err := ioutil.ReadFile(jsonFile)
 	if err != nil {
