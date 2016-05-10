@@ -1,10 +1,10 @@
 package main
 
 import (
-	"testing"
 	"encoding/json"
-	"os"
 	"fmt"
+	"os"
+	"testing"
 )
 
 func TestReadAndUnmarshal(t *testing.T) {
@@ -20,8 +20,8 @@ func TestReadAndUnmarshal(t *testing.T) {
 		fmt.Errorf("parsing config file", err.Error())
 	}
 
-	actualNewsletter := readJsonReturnNewsletter(jsonTestfile)
-	if !areNewsletterDeepEqual(actualNewsletter, expectedNewsletter){
+	actualNewsletter := readJSONReturnNewsletter(jsonTestfile)
+	if !areNewsletterDeepEqual(actualNewsletter, expectedNewsletter) {
 		t.Error("the newsletters are not equal!")
 	}
 
@@ -30,7 +30,7 @@ func TestReadAndUnmarshal(t *testing.T) {
 func areNewsletterDeepEqual(newsletterActual, newsletterExpected Newsletter) bool {
 	for index, issue := range newsletterActual.Issues {
 		issue2 := newsletterExpected.Issues[index]
-		if issue.Id == issue2.Id && issue.Status == issue2.Status && areLinksEqual(issue, issue2){
+		if issue.Id == issue2.Id && issue.Status == issue2.Status && areLinksEqual(issue, issue2) {
 			return true
 		}
 	}

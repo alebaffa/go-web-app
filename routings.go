@@ -12,13 +12,12 @@ type Controller struct {
 }
 
 func (c *Controller) ViewAllIssues(res http.ResponseWriter, req *http.Request) {
-	var issues = make([]Issue, 0)
+	//var issues = make([]Issue, 0)
 	newsletter := GetAllIssues(c)
 
 	r := render.New(render.Options{
 		IndentJSON: true,
 	})
 
-	issues = newsletter.Issues
-	r.JSON(res, 200, issues)
+	r.JSON(res, 200, newsletter.Issues)
 }
